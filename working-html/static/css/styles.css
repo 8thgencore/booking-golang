@@ -1,0 +1,35 @@
+.my-footer {
+    height: 5em;
+    background-color: #163b65;
+    margin-top: 1.5em;
+    padding: 1em;
+    color: white;
+    font-size: 80%;
+}
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+.tales {
+    width: 100%;
+}
+
+carousel-item>img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 32rem;
+}
+
+.room-image {
+    max-width: 50%;
+}
+
+/* github.com/jaredreich/notie */
+.notie-container {
+    box-shadow: none;
+}
+
+.datepicker {
+    z-index: 10000;
+}
