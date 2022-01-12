@@ -48,10 +48,14 @@ func main() {
 
 func run() (*driver.DB, error) {
 	// what am I going to put in the session
+	gob.Register(models.User{})
+	gob.Register(models.Room{})
 	gob.Register(models.Reservation{})
+	gob.Register(models.Restriction{})
 
 	// change this to true when in production
 	app.InProduction = false
+	app.UseCache = false
 
 	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	app.InfoLog = infoLog
@@ -73,7 +77,7 @@ func run() (*driver.DB, error) {
 	if err != nil {
 		log.Fatal("Cannot connect to database! Dying...")
 	}
-	defer db.SQL.Close()
+	log.Println("Connected to database!")
 
 	// create template cache
 	tc, err := render.CreateTemplateCache()
@@ -81,15 +85,12 @@ func run() (*driver.DB, error) {
 		log.Fatal("Cannot create template cache", err)
 		return nil, err
 	}
-	log.Println("Connected to database!")
 
 	app.TemplateCache = tc
-	app.UseCache = false
 
-	// pass template cache to handlers
 	repo := handlers.NewRepo(&app, db)
 	handlers.NewHandlers(repo)
-	render.NewTemplates(&app)
+	render.NewRenderer(&app)
 	helpers.NewHelpers(&app)
 
 	return db, nil
