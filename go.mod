@@ -14,6 +14,8 @@ require (
 	github.com/gobuffalo/pop/v6 v6.0.1 // indirect
 	github.com/gobuffalo/validate v2.0.4+incompatible // indirect
 	github.com/gofrs/uuid v4.2.0+incompatible // indirect
+	github.com/jackc/pgconn v1.10.1 // indirect
+	github.com/jackc/pgx/v4 v4.14.1 // indirect
 	github.com/justinas/nosurf v1.1.1
 	github.com/mattn/go-sqlite3 v1.14.10 // indirect
 	github.com/spf13/cobra v1.3.0 // indirect
