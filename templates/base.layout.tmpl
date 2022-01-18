@@ -46,10 +46,19 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/search-availability">Book now</a>
+                        <a class="nav-link" href="/search-availability" tabindex="-1" aria-disabled="true">Book now</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-md-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact" tabindex="-1" aria-disabled="true">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contact</a>
+                        {{if eq .IsAuthenticated 1}}
+                            <a class="nav-link" href="/user/logout" tabindex="-1" aria-disabled="true">Logout</a>
+                        {{else}}
+                            <a class="nav-link" href="/user/login" tabindex="-1" aria-disabled="true">Login</a>
+                        {{end}}
                     </li>
                 </ul>
             </div>
@@ -60,15 +69,15 @@
     {{end}}
 
     <div class="row my-footer">
-    <div class="col">
-        Left
-    </div>
-    <div class="col">
-        Middle
-    </div>
-    <div class="col">
-        Right
-    </div>
+        <div class="col">
+            Left
+        </div>
+        <div class="col">
+            Middle
+        </div>
+        <div class="col">
+            Right
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
@@ -125,17 +134,17 @@
             })
         }
 
-        {{with .Error}}
-            notify("{{.}}", "error")
-        {{end}}
+        {{ with .Error}}
+        notify("{{.}}", "error")
+        {{ end }}
 
-        {{with .Flash}}
-            notify("{{.}}", "success")
-        {{end}}
+        {{ with .Flash}}
+        notify("{{.}}", "success")
+        {{ end }}
 
-        {{with .Warning}}
-            notify("{{.}}", "warning")
-        {{end}}
+        {{ with .Warning}}
+        notify("{{.}}", "warning")
+        {{ end }}
 
     </script>
 
