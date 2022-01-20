@@ -3,7 +3,6 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -145,41 +144,41 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// send notifications - first to guest
-	htmlMessage := fmt.Sprintf(`
-		<strong>Reservation Confirmation</strong><br>
-		Dear %s: <br>
-		This is confirm your reservation from %s to %s.`,
-		reservation.FirstName,
-		reservation.StartDate.Format("02.01.2006"),
-		reservation.EndDate.Format("02.01.2006"))
+	// // send notifications - first to guest
+	// htmlMessage := fmt.Sprintf(`
+	// 	<strong>Reservation Confirmation</strong><br>
+	// 	Dear %s: <br>
+	// 	This is confirm your reservation from %s to %s.`,
+	// 	reservation.FirstName,
+	// 	reservation.StartDate.Format("02.01.2006"),
+	// 	reservation.EndDate.Format("02.01.2006"))
 
-	msg := models.MailData{
-		To:       reservation.Email,
-		From:     "me@here.com",
-		Subject:  "Reservation Confirmation",
-		Content:  htmlMessage,
-		Template: "basic.html",
-	}
+	// msg := models.MailData{
+	// 	To:       reservation.Email,
+	// 	From:     "me@here.com",
+	// 	Subject:  "Reservation Confirmation",
+	// 	Content:  htmlMessage,
+	// 	Template: "basic.html",
+	// }
 
-	m.App.MailChan <- msg
+	// m.App.MailChan <- msg
 
-	// send notification to property owner
-	htmlMessage = fmt.Sprintf(`
-		<strong>Reservation Notification</strong><br>
-		A reservation has been made for %s from %s to %s.`,
-		reservation.Room.RoomName,
-		reservation.StartDate.Format("02.01.2006"),
-		reservation.EndDate.Format("02.01.2006"))
+	// // send notification to property owner
+	// htmlMessage = fmt.Sprintf(`
+	// 	<strong>Reservation Notification</strong><br>
+	// 	A reservation has been made for %s from %s to %s.`,
+	// 	reservation.Room.RoomName,
+	// 	reservation.StartDate.Format("02.01.2006"),
+	// 	reservation.EndDate.Format("02.01.2006"))
 
-	msg = models.MailData{
-		To:      "me@here.com",
-		From:    "me@here.com",
-		Subject: "Reservation Notification",
-		Content: htmlMessage,
-	}
+	// msg = models.MailData{
+	// 	To:      "me@here.com",
+	// 	From:    "me@here.com",
+	// 	Subject: "Reservation Notification",
+	// 	Content: htmlMessage,
+	// }
 
-	m.App.MailChan <- msg
+	// m.App.MailChan <- msg
 
 	m.App.Session.Put(r.Context(), "reservation", reservation)
 
@@ -433,6 +432,7 @@ func (m *Repository) AdminDashboard(w http.ResponseWriter, r *http.Request) {
 	render.Template(w, r, "admin-dashboard.page.tmpl", &models.TemplateData{})
 }
 
+// AdminAllReservations shows all reservations inu admin tool
 func (m *Repository) AdminAllReservations(w http.ResponseWriter, r *http.Request) {
 	reservations, err := m.DB.AllReservations()
 	if err != nil {
@@ -448,8 +448,19 @@ func (m *Repository) AdminAllReservations(w http.ResponseWriter, r *http.Request
 	})
 }
 
+// AdminNewReservations shows all new reservations in admin tool
 func (m *Repository) AdminNewReservations(w http.ResponseWriter, r *http.Request) {
-	render.Template(w, r, "admin-new-reservations.page.tmpl", &models.TemplateData{})
+	reservations, err := m.DB.AllNewReservations()
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	data := make(map[string]interface{})
+	data["reservations"] = reservations
+	render.Template(w, r, "admin-new-reservations.page.tmpl", &models.TemplateData{
+		Data: data,
+	})
 }
 
 func (m *Repository) AdminReservationsCalendar(w http.ResponseWriter, r *http.Request) {
