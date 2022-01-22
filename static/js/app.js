@@ -1,3 +1,4 @@
+// Prompt is our JavaScript module for all alerts, notifications, and custom popup dialogs
 function Prompt() {
     let toast = function (c) {
         const {
@@ -20,7 +21,7 @@ function Prompt() {
             }
         })
 
-        Toast.fire({});
+        Toast.fire({})
     }
 
     let success = function (c) {
@@ -31,7 +32,7 @@ function Prompt() {
         } = c;
 
         Swal.fire({
-            icon: "success",
+            icon: 'success',
             title: title,
             text: msg,
             footer: footer,
@@ -46,7 +47,7 @@ function Prompt() {
         } = c;
 
         Swal.fire({
-            icon: "error",
+            icon: 'error',
             title: title,
             text: msg,
             footer: footer,
@@ -58,31 +59,27 @@ function Prompt() {
             icon = "",
             msg = "",
             title = "",
+            showConfirmButton = true,
         } = c;
 
-        const { value: result } = await Swal.fire({
+        const {value: result} = await Swal.fire({
             icon: icon,
             title: title,
             html: msg,
             backdrop: false,
             focusConfirm: false,
-            showConfirmButton: true,
+            showCancelButton: true,
+            showConfirmButton: showConfirmButton,
             willOpen: () => {
                 if (c.willOpen !== undefined) {
                     c.willOpen();
                 }
             },
-            preConfirm: () => {
-                return [
-                    document.getElementById('start').value,
-                    document.getElementById('end').value
-                ]
-            },
             didOpen: () => {
                 if (c.didOpen !== undefined) {
                     c.didOpen();
                 }
-            },
+            }
         })
 
         if (result) {
@@ -100,10 +97,11 @@ function Prompt() {
         }
     }
 
+
     return {
         toast: toast,
         success: success,
         error: error,
-        custom: custom
+        custom: custom,
     }
 }
