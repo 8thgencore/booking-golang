@@ -1,0 +1,101 @@
+.page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+.content-container {
+    padding-bottom: 5em;
+}
+
+.footer-container {
+    position: absolute;
+    bottom: 0;
+    height: 5em;
+    width: 100%;
+    background-color: #163b65;
+    margin-top: 1.5em;
+    padding: 1em;
+    color: white;
+    font-size: 80%;
+}
+
+@media only screen and (max-width: 600px){
+    .content-container {
+        padding-bottom: 6em;
+    }
+
+    .footer-container {
+        height: 6em;
+    }
+}
+
+@media only screen and (max-width: 400px){
+    .content-container {
+        padding-bottom: 8em;
+    }
+
+    .footer-container {
+        height: 8em;
+    }
+}
+
+@media only screen and (max-width: 330px){
+    .content-container {
+        padding-bottom: 10em;
+    }
+
+    .footer-container {
+        height: 10em;
+    }
+}
+
+.room-image {
+    max-width: 50%;
+}
+
+.datepicker {
+    z-index: 2000;
+}
+
+.carousel-inner .carousel-caption {
+    z-index: 10;
+}
+
+.carousel-inner .carousel-item {
+    height: 50vh;
+}
+
+.carousel-inner .carousel-item:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #212529;
+    opacity: 0.5;
+}
+
+.carousel-inner .carousel-item img {
+    width: 100vw;
+    height: 100%;
+    object-fit: cover;
+}
+
+.roomList {
+    width: 640px;
+}
+
+.reservationForm,
+.reservationSummary {
+    width: 800px;
+}
+
+.contactData {
+    width: 1000px;
+}
+
+.loginForm {
+    width: 640px;
+}

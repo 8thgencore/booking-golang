@@ -1,0 +1,37 @@
+.notie-container {
+    z-index: 2000;
+}
+
+.reservationsList {
+    max-width: 1440px;
+}
+
+.reservationEditForm {
+    max-width: 800px;
+}
+
+.resetCalendarDateButton,
+.deleteReservationButton {
+    margin-left: auto;
+}
+
+.calendarHeader,
+.calendarButtons,
+.calendar {
+    min-width: 640px;
+    max-width: 640px;
+}
+
+.calendars .calendar {
+    margin-top: 3rem;
+    margin-right: 4rem;
+}
+
+.calendar + .calendar {
+    margin-right: 0;
+}
+
+.calendar td {
+    width: 14.2857%;
+    height: 2.25rem;
+}
